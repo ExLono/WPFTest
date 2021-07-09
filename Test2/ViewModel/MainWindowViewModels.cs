@@ -43,15 +43,9 @@ namespace Test2.ViewModel
                                                                         obj as ObservableCollection<User>;
                                                                     users.Add(new User(){Id = uint.MaxValue,FirstName = "dfsdfsdfsdf"});
                                                                 }));
-
-        public ObservableCollection<User> Users
+        public Collection<User> Users
         {
             get => _users;
-            set
-            {
-                _users = value;
-                OnPropertyChanged(nameof(Users));
-            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Test2
 			//В-четвертых у тебя приложение без XML не работает, имеет смысл инициализацию XML перенести в класс App (в нём происходит кртическая 
 			//логика запуска приложения)
 			//XDocument xNewDoc = XDocument.Load(xmlFile);
-			var app = (Application.Current as App);
+			var app = (Application.Current as App); 
 			_xDocument = app.XDocument; //Что-то такое больше приветсвется в сообществе
 			_pathXML = app.XmlFile;
             i = _xDocument.Root.Nodes().Count();

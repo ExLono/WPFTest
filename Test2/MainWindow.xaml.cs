@@ -29,6 +29,7 @@ namespace Test2
 			_xDocument = app.XDocument; //Что-то такое больше приветсвется в сообществе
 			_pathXML = app.XmlFile;
             i = _xDocument.Root.Nodes().Count();
+                //Изменения видны?
 			//Обновление
 			obnovleniewpf();
 		}

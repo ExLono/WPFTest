@@ -2,20 +2,19 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+
 using Test2.Command;
 using Test2.Models;
 
 namespace Test2.ViewModel
 {
-    public sealed class UserViewModel : BaseViewModel
+	public sealed class UserViewModel : BaseViewModel
     {
         private ObservableCollection<User> _users;
-        private string _currentid;
+        private uint _currentId;
 
         public UserViewModel()
         {
@@ -25,12 +24,14 @@ namespace Test2.ViewModel
                 new User() { Id = 2, FirstName = "1111", SecondName = "2222",  Phone = "2222" },
                 new User() { Id = 3, FirstName = "1111", SecondName = "2222",  Phone = "2222" }
             };
-        }
+			_executeDeleteUserCurrentId = Execute;
+			DeleteUserCurrentId = new RelayCommand(_executeDeleteUserCurrentId);
+		}
 
 
 
 
-        public ICommand AddUser { get; set; } = new Button1(new Action<object>(                                                                
+        public ICommand AddUser { get; set; } = new RelayCommand(new Action<object>(                                                                
             (obj) =>            
             {
             IList<User> users = obj as ObservableCollection<User>;
@@ -39,28 +40,47 @@ namespace Test2.ViewModel
 
 
 
-        public ICommand DeleteUser { get; set; } = new Button1(new Action<object>(
-            (obj) =>
-            {
-                IList<User> users = obj as ObservableCollection<User>;
-                users.RemoveAt(users.Count-1);
-            }));
+        public ICommand DeleteUser { get;} = new RelayCommand((obj) =>
+		{
+			IList<User> users = obj as ObservableCollection<User>;
+			users.RemoveAt(users.Count-1);
+		});
 
-        public ICommand DeleteUserCurrentId { get; set; } = new Button2(new Action<object>(
-            (obj) =>
-            {
-                IList<User> users = obj as ObservableCollection<User>;
-                users.RemoveAt(3);
-            }));
+		public ICommand DeleteUserCurrentId { get; }
 
-        public Collection<User> Users
+        public ObservableCollection<User> Users
         {
-            get => (_users);
+            get => _users;
         }
-        public string currentid
+        public uint CurrentId
         {
-            get => _currentid;
+            get => _currentId;
+			set
+			{
+				_currentId = value;
+                OnPropertyChanged(nameof(CurrentId));
+			}
         }
 
-    }
+		
+		private static Action<object> _executeDeleteUserCurrentId;
+
+		private void Execute(object parameter)
+		{
+			try
+			{
+				int index = checked((int) CurrentId);
+				Users.RemoveAt(index - 1);
+			}
+			catch (OverflowException)
+			{
+				MessageBox.Show("Ошибка переполнения -> вводимый id значительно больше ожидаемого параметра");
+				Users.RemoveAt(Users.Count - 1);
+			}
+			catch (ArgumentOutOfRangeException)
+			{
+				MessageBox.Show("Значение ID либо меньше нуля, либо больше макмимального значения");
+			}
+		}
+	}
 }

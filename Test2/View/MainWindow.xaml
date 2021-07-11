@@ -9,7 +9,7 @@
         Title="MainWindow" MaxHeight="500" MaxWidth="850" MinHeight="500" MinWidth="850">
 
     <Window.DataContext>
-        <vm:UserViewModel></vm:UserViewModel>
+        <vm:UserViewModel />
     </Window.DataContext>
     <Grid Height="440" Width="800">
         <Grid.RowDefinitions>
@@ -18,10 +18,10 @@
             <RowDefinition Height="20*"/>
         </Grid.RowDefinitions>
         <StackPanel>
-            <TextBlock Text="Фильтр" Margin="5"></TextBlock>
-            <TextBox x:Name="currentid"> </TextBox>
+            <TextBlock Text="Фильтр" HorizontalAlignment="Stretch" Padding="0,5"></TextBlock>
+            <TextBox HorizontalAlignment="Stretch" Text="{Binding CurrentId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
-        <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Users}">
+        <DataGrid Grid.Row="1" AutoGenerateColumns="False" ItemsSource="{Binding Users,UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Имя" Width="*" Binding="{Binding FirstName}" />
@@ -37,7 +37,8 @@
             </Grid.ColumnDefinitions>
             <Button Content="Добавить" Command="{Binding AddUser}" CommandParameter="{Binding Users}"></Button>
             <Button Grid.Column="1" Content="Удалить последнюю запись" Command="{Binding DeleteUser}" CommandParameter="{Binding Users}"></Button>
-            <Button Grid.Column="2" Content="Удалить запись по ID" Command="{Binding DeleteUserCurrentId}" CommandParameter="{Binding Users}"></Button>
+            <Button Grid.Column="2" Content="Удалить запись по ID" Command="{Binding DeleteUserCurrentId}"
+                    CommandParameter="{Binding CurrentId}"></Button>
         </Grid>
     </Grid>
 </Window>

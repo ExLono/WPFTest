@@ -7,13 +7,13 @@ using System.Windows.Input;
 
 namespace Test2.Command
 {
-    public sealed class Button1 : ICommand
+    public sealed class RelayCommand : ICommand
     
     {
     
         private readonly Action<object> _action;        
         private readonly Func<object, bool> _func;        
-        public Button1(Action<object> action, Func<object, bool> func = null)        
+        public RelayCommand(Action<object> action, Func<object, bool> func = null)        
         {        
             _action = action;            
             _func = func;            

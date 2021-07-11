@@ -11,7 +11,7 @@ using Test2.Models;
 
 namespace Test2.ViewModel
 {
-	public sealed class UserViewModel : INotifyPropertyChanged
+	public sealed class UserViewModel : BaseViewModel
     {
         private ObservableCollection<User> _users;
         private uint _currentId;
@@ -62,8 +62,7 @@ namespace Test2.ViewModel
 			}
         }
 
-		public event PropertyChangedEventHandler PropertyChanged;
-
+		
 		private static Action<object> _executeDeleteUserCurrentId;
 
 		private void Execute(object parameter)
@@ -82,12 +81,6 @@ namespace Test2.ViewModel
 			{
 				MessageBox.Show("Значение ID либо меньше нуля, либо больше макмимального значения");
 			}
-		}
-
-		
-		private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-		{
-			this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
 }

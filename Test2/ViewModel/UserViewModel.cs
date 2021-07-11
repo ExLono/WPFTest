@@ -14,6 +14,7 @@ namespace Test2.ViewModel
     public sealed class UserViewModel
     {
         private ObservableCollection<User> _users;
+        private string _currentid;
 
         public UserViewModel()
         {
@@ -25,26 +26,6 @@ namespace Test2.ViewModel
             };
         }
 
-        /*private String _currentid;
-        public String currentid
-        {
-            get { return _currentid; }
-            set
-            {
-                _currentid = value;
-                OnPropertyChanged(nameof(currentid));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged(string v)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(v));
-            }
-        }*/
 
 
 
@@ -64,10 +45,20 @@ namespace Test2.ViewModel
                 users.RemoveAt(users.Count-1);
             }));
 
+        public ICommand DeleteUserCurrentId { get; set; } = new Button2(new Action<object>(
+            (obj) =>
+            {
+                IList<User> users = obj as ObservableCollection<User>;
+                users.RemoveAt(_currentid);
+            }));
+
         public Collection<User> Users
         {
-            get => _users;
+            get => (_users);
         }
-
+        public string currentid
+        {
+            get => _currentid;
+        }
     }
 }

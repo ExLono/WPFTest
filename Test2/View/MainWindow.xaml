@@ -37,7 +37,7 @@
             </Grid.ColumnDefinitions>
             <Button Content="Добавить" Command="{Binding AddUser}" CommandParameter="{Binding Users}"></Button>
             <Button Grid.Column="1" Content="Удалить последнюю запись" Command="{Binding DeleteUser}" CommandParameter="{Binding Users}"></Button>
-            <Button Grid.Column="2" Content="Удалить запись по ID" ></Button>
+            <Button Grid.Column="2" Content="Удалить запись по ID" Command="{Binding DeleteUserCurrentId}" CommandParameter="{Binding Users}"></Button>
         </Grid>
     </Grid>
 </Window>

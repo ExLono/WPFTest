@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-
+using System.Xml.Serialization;
 using Test2.Command;
 using Test2.Models;
 
@@ -13,10 +13,10 @@ namespace Test2.ViewModel
 {
 	public sealed class UserViewModel : BaseViewModel
     {
-        private ObservableCollection<User> _users;
+		private ObservableCollection<User> _users;
         private uint _currentId;
 
-        public UserViewModel()
+        public UserViewModel() 
         {
             _users = new ObservableCollection<User>()
             {
@@ -24,27 +24,21 @@ namespace Test2.ViewModel
                 new User() { Id = 2, FirstName = "1111", SecondName = "2222",  Phone = "2222" },
                 new User() { Id = 3, FirstName = "1111", SecondName = "2222",  Phone = "2222" }
             };
-			_executeDeleteUserCurrentId = Execute;
-			DeleteUserCurrentId = new RelayCommand(_executeDeleteUserCurrentId);
+			DeleteUserCurrentId = new RelayCommand(DeleteCurrentIdCommon);
 		}
 
 
+		public ICommand AddUser { get; set; } = new RelayCommand(new Action<object>((obj) =>        
+		{
+			IList<User> users = obj as ObservableCollection<User>;
+			users.Add(new User() { Id = 4, FirstName = "dfsdfsdfsdf"});
+		}));
 
-
-        public ICommand AddUser { get; set; } = new RelayCommand(new Action<object>(                                                                
-            (obj) =>            
-            {
-            IList<User> users = obj as ObservableCollection<User>;
-            users.Add(new User() { Id = 4, FirstName = "dfsdfsdfsdf"});
-            }));
-
-
-
-        public ICommand DeleteUser { get;} = new RelayCommand((obj) =>
+        public ICommand DeleteUser { get;} = new RelayCommand(new Action<object>((obj) =>
 		{
 			IList<User> users = obj as ObservableCollection<User>;
 			users.RemoveAt(users.Count-1);
-		});
+		}));
 
 		public ICommand DeleteUserCurrentId { get; }
 
@@ -52,6 +46,8 @@ namespace Test2.ViewModel
         {
             get => _users;
         }
+
+
         public uint CurrentId
         {
             get => _currentId;
@@ -62,10 +58,7 @@ namespace Test2.ViewModel
 			}
         }
 
-		
-		private static Action<object> _executeDeleteUserCurrentId;
-
-		private void Execute(object parameter)
+		private void DeleteCurrentIdCommon (object parameter)
 		{
 			try
 			{

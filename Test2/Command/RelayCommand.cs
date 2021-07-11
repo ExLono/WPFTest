@@ -7,14 +7,16 @@ using System.Windows.Input;
 
 namespace Test2.Command
 {
-    public sealed class Button2 : ICommand
+    public sealed class RelayCommand : ICommand
+    
     {
-        private readonly Action<object> _action;
-        private readonly Func<object, bool> _func;
-        public Button2(Action<object> action, Func<object, bool> func = null)
-        {
-            _action = action;
-            _func = func;
+    
+        private readonly Action<object> _action;        
+        private readonly Func<object, bool> _func;        
+        public RelayCommand(Action<object> action, Func<object, bool> func = null)        
+        {        
+            _action = action;            
+            _func = func;            
         }
 
         #region Implementation of ICommand
@@ -32,3 +34,4 @@ namespace Test2.Command
         #endregion
     }
 }
+

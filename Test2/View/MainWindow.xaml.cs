@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Xml;
-using System.Xml.Linq;
-using Test2.ViewModel;
+﻿using System.Windows;
 
 namespace Test2
 {
@@ -14,10 +7,6 @@ namespace Test2
 		public MainWindow()
 		{
 			InitializeComponent();
-			DataContext = new UserViewModel();
-
-
-
 		}
 	}
 }

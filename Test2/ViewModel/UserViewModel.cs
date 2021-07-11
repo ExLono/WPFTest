@@ -39,7 +39,7 @@ namespace Test2.ViewModel
 
 
 
-        public ICommand DeleteUser { get; set; } = new Button2(new Action<object>(
+        public ICommand DeleteUser { get; set; } = new Button1(new Action<object>(
             (obj) =>
             {
                 IList<User> users = obj as ObservableCollection<User>;
@@ -50,7 +50,7 @@ namespace Test2.ViewModel
             (obj) =>
             {
                 IList<User> users = obj as ObservableCollection<User>;
-                users.RemoveAt(_currentid);
+                users.RemoveAt(3);
             }));
 
         public Collection<User> Users

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -11,7 +12,7 @@ using Test2.Models;
 
 namespace Test2.ViewModel
 {
-    public sealed class UserViewModel
+    public sealed class UserViewModel : BaseViewModel
     {
         private ObservableCollection<User> _users;
         private string _currentid;
@@ -60,5 +61,6 @@ namespace Test2.ViewModel
         {
             get => _currentid;
         }
+
     }
 }
